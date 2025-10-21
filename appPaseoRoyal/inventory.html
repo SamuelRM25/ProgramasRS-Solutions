@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Soccer Field Manager</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="logo">Soccer Field Manager</div>
+        <ul>
+            <li><a href="index.html">Reservaciones</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="inventory-section">
+            <h2>Inventario de la Tienda</h2>
+            <div class="inventory-controls">
+                <button id="add-item" class="btn">Agregar Producto</button>
+                <input type="text" id="search-inventory" placeholder="Buscar producto...">
+            </div>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+    <script src="js/inventory.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Gym - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h2>Atlas Gym</h2>
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <input type="text" name="username" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Usuario</label>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="password" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Contraseña</label>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <button type="submit">
+                            <span>Iniciar Sesión</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <div id="error-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>

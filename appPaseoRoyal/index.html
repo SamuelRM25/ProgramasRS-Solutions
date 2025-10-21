@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cancha de Fútbol</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="logo">Soccer Field Manager</div>
+        <ul>
+            <li><a href="inventory.html">Inventario</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="calendar-section">
+            <div class="calendar-controls">
+                <select id="calendar-view">
+                    <option value="month">Mes</option>
+                    <option value="week">Semana</option>
+                    <option value="day">Día</option>
+                </select>
+                <div class="date-navigation">
+                    <button id="prev">Anterior</button>
+                    <span id="current-date">Julio 2023</span>
+                    <button id="next">Siguiente</button>
+                </div>
+            </div>
+            <div id="calendar-container"></div>
+        </section>
+    </main>
+
+    <!-- Add these script tags before closing body tag -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
