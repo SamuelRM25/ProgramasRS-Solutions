@@ -18,6 +18,9 @@ try {
 // Obtener fechas para filtros
 $fecha_inicio = $_GET['fecha_inicio'] ?? date('Y-m-01');
 $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
+
+$start_datetime = $fecha_inicio . ' 08:00:00';
+$end_datetime = date('Y-m-d', strtotime($fecha_fin . ' +1 day')) . ' 07:59:59';
 ?>
 
 <div class="d-flex">
@@ -74,7 +77,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                             <h5 class="card-title">Citas en Período</h5>
                             <?php
                             $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM citas WHERE fecha_cita BETWEEN ? AND ?");
-                            $stmt->execute([$fecha_inicio, $fecha_fin]);
+                            $stmt->execute([$start_datetime, $end_datetime]);
                             $totalCitas = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
                             ?>
                             <p class="card-text display-4"><?php echo $totalCitas; ?></p>
@@ -87,7 +90,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                             <h5 class="card-title">Exámenes Realizados</h5>
                             <?php
                             $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM examenes_realizados WHERE fecha_examen BETWEEN ? AND ?");
-                            $stmt->execute([$fecha_inicio, $fecha_fin]);
+                            $stmt->execute([$start_datetime, $end_datetime]);
                             $totalExamenes = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
                             ?>
                             <p class="card-text display-4"><?php echo $totalExamenes; ?></p>
@@ -129,7 +132,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                                         JOIN ventas v ON dv.id_venta = v.id_venta
                                         WHERE v.fecha_venta BETWEEN ? AND ?
                                     ");
-                                    $stmt->execute([$fecha_inicio, $fecha_fin]);
+                                    $stmt->execute([$start_datetime, $end_datetime]);
                                     $ventas = $stmt->fetch(PDO::FETCH_ASSOC);
                                     $totalVentas = $ventas['total_ventas'] ?? 0;
                                     ?>
@@ -150,7 +153,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                                         FROM procedimientos_menores 
                                         WHERE fecha_procedimiento BETWEEN ? AND ?
                                     ");
-                                    $stmt->execute([$fecha_inicio, $fecha_fin]);
+                                    $stmt->execute([$start_datetime, $end_datetime]);
                                     $procedimientos = $stmt->fetch(PDO::FETCH_ASSOC);
                                     $totalProcedimientos = $procedimientos['total'] ?? 0;
                                     ?>
@@ -171,7 +174,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                                         FROM examenes_realizados 
                                         WHERE fecha_examen BETWEEN ? AND ?
                                     ");
-                                    $stmt->execute([$fecha_inicio, $fecha_fin]);
+                                    $stmt->execute([$start_datetime, $end_datetime]);
                                     $examenes = $stmt->fetch(PDO::FETCH_ASSOC);
                                     $totalExamenesCobro = $examenes['total'] ?? 0;
                                     ?>
@@ -194,7 +197,7 @@ $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-t');
                                         FROM compras 
                                         WHERE fecha_compra BETWEEN ? AND ?
                                     ");
-                                    $stmt->execute([$fecha_inicio, $fecha_fin]);
+                                    $stmt->execute([$start_datetime, $end_datetime]);
                                     $compras = $stmt->fetch(PDO::FETCH_ASSOC);
                                     $totalCompras = $compras['total'] ?? 0;
                                     ?>
