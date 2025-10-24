@@ -1,14 +1,108 @@
-/* --- Variables de Diseño --- */
+/* --- Cancionero --- */
+.songbook-list {
+    margin: 1.5rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.songbook-item {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.songbook-item:hover {
+    background-color: rgba(244, 196, 48, 0.1);
+}
+
+.songbook-item.active {
+    background-color: rgba(244, 196, 48, 0.2);
+    border-left: 3px solid var(--primary-color);
+}
+
+.song-title {
+    font-weight: bold;
+}
+
+.song-difficulty {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+}
+
+.song-difficulty.principiante {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.song-difficulty.intermedio {
+    background-color: #ff9800;
+    color: #fff;
+}
+
+.song-difficulty.avanzado {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.song-details {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+}
+
+.song-notation {
+    margin-top: 1rem;
+}
+
+.sheet-music {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.tablature {
+    font-family: monospace;
+    background-color: #333;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    line-height: 2;
+}
+
+.chord-chart {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid var(--secondary-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.chord-chart h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}/* --- Variables de Diseño --- */
 :root {
-    --bg-color: #1a1a1a;
-    --surface-color: #2a2a2a;
+    --bg-color: #121212;
+    --surface-color: #1e1e1e;
     --primary-color: #f4c430;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
     --text-color: #f0f0f0;
     --text-muted: #b0b0b0;
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Roboto', sans-serif;
-    --border-radius: 8px;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 10px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --transition-speed: 0.3s;
 }
 
@@ -254,13 +348,14 @@ h1, h2, h3 {
     color: #4caf50;
 }
 
-/* --- Vista de Lección --- */
+/* --- Lección y Contenido --- */
 .lesson-content-area {
     margin-top: 1.5rem;
     background-color: var(--surface-color);
     padding: 2rem;
     border-radius: var(--border-radius);
     line-height: 1.8;
+    box-shadow: var(--shadow);
 }
 
 .lesson-content-area h2 {
@@ -271,6 +366,35 @@ h1, h2, h3 {
 
 .lesson-content-area p {
     margin-bottom: 1rem;
+}
+
+.lesson-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #444;
+    text-align: center;
+}
+
+.complete-lesson-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.complete-lesson-btn:disabled {
+    background-color: #4caf50;
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.congrats-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: opacity 0.5s;
 }
 
 /* --- Ejercicios y Juegos --- */
@@ -367,8 +491,8 @@ h1, h2, h3 {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(to top, #222, #1a1a1a);
-    padding: 10px;
+    background: linear-gradient(to top, #111, #1a1a1a);
+    padding: 15px 10px;
     box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
     z-index: 999;
     transform: translateY(100%); /* Oculto por defecto */
@@ -384,6 +508,8 @@ h1, h2, h3 {
     justify-content: center;
     margin-bottom: 5px;
     height: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .piano-label {
@@ -399,41 +525,47 @@ h1, h2, h3 {
     position: relative;
     overflow-x: auto; /* Permite scroll horizontal en móviles */
     padding-bottom: 10px;
+    height: 130px;
 }
 
 .piano-key {
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.1s;
+    transition: all 0.1s;
     position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .piano-key--white {
     width: 50px;
     height: 120px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
+    border: 1px solid #ddd;
     border-radius: 0 0 5px 5px;
-    margin: 0 1px;
+    margin: 0;
     flex-shrink: 0; /* Evita que las teclas se encojan */
+    z-index: 1;
 }
 
 .piano-key--white:hover, .piano-key--white.active {
-    background-color: #eee;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #eee 100%);
+    transform: translateY(2px);
 }
 
 .piano-key--black {
-    width: 35px;
+    width: 30px;
     height: 80px;
-    background-color: #000;
+    background: linear-gradient(to bottom, #333 0%, #000 100%);
     border-radius: 0 0 3px 3px;
     position: absolute;
     z-index: 2;
     flex-shrink: 0;
+    top: 0;
 }
 
 .piano-key--black:hover, .piano-key--black.active {
-    background-color: #333;
+    background: linear-gradient(to bottom, #444 0%, #222 100%);
+    transform: translateY(2px);
 }
 
 /* --- Modal --- */

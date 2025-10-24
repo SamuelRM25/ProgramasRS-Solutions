@@ -33,6 +33,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
             stats: { lessonsCompleted: 0, gamesPlayed: 0 }
+        },
+        'Admin': {
+            password: 'admin',
+            isAdmin: true,
+            progress: {
+                course: {
+                    module1: { completed: true, lessons: { lesson1: true, lesson2: true, lesson3: true } },
+                    module2: { completed: true, lessons: { lesson1: true, lesson2: true, lesson3: true } },
+                    module3: { completed: true, lessons: { lesson1: true, lesson2: true, lesson3: true } },
+                    module4: { completed: true, lessons: { lesson1: true, lesson2: true, lesson3: true } },
+                    module5: { completed: true, lessons: { lesson1: true, lesson2: true, lesson3: true } },
+                    module6: { completed: true, lessons: { lesson1: true, lesson2: true } },
+                    module7: { completed: true, lessons: { lesson1: true, lesson2: true } },
+                    module8: { completed: true, lessons: { lesson1: true, lesson2: true } },
+                }
+            },
+            stats: { lessonsCompleted: 22, gamesPlayed: 10 }
         }
     };
 
@@ -140,6 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideLoading();
                 if (viewId === 'lesson') {
                     renderLesson(data.moduleId, data.lessonId);
+                } else if (viewId === 'dashboard') {
+                    renderDashboard();
+                } else if (viewId === 'course') {
+                    renderCourse();
+                } else if (viewId === 'tools') {
+                    renderSongbook();
                 }
             }, 300);
         }
@@ -321,12 +344,43 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.getElementById('back-to-course').onclick = () => showView('course');
         
-        // Marcar lección como completada al verla
-        if (!USERS[currentUser].progress.course[moduleId].lessons[lessonId]) {
-            USERS[currentUser].progress.course[moduleId].lessons[lessonId] = true;
-            USERS[currentUser].stats.lessonsCompleted++;
-            checkModuleCompletion(moduleId);
-        }
+        // Añadir botón de completar lección
+        const lessonActions = document.createElement('div');
+        lessonActions.className = 'lesson-actions';
+        
+        const completeButton = document.createElement('button');
+        completeButton.className = 'btn btn-primary complete-lesson-btn';
+        
+        // Verificar si la lección ya está completada
+        const isCompleted = USERS[currentUser].progress.course[moduleId].lessons[lessonId];
+        
+        completeButton.textContent = isCompleted ? '✅ Lección Completada' : 'Marcar como Completada';
+        completeButton.disabled = isCompleted;
+        
+        completeButton.addEventListener('click', () => {
+            if (!USERS[currentUser].progress.course[moduleId].lessons[lessonId]) {
+                USERS[currentUser].progress.course[moduleId].lessons[lessonId] = true;
+                USERS[currentUser].stats.lessonsCompleted++;
+                checkModuleCompletion(moduleId);
+                completeButton.textContent = '✅ Lección Completada';
+                completeButton.disabled = true;
+                
+                // Mostrar mensaje de felicitación
+                const congratsMessage = document.createElement('div');
+                congratsMessage.className = 'congrats-message';
+                congratsMessage.textContent = '¡Felicidades! Has completado esta lección.';
+                lessonActions.appendChild(congratsMessage);
+                
+                // Hacer que desaparezca después de 3 segundos
+                setTimeout(() => {
+                    congratsMessage.style.opacity = '0';
+                    setTimeout(() => congratsMessage.remove(), 500);
+                }, 3000);
+            }
+        });
+        
+        lessonActions.appendChild(completeButton);
+        document.getElementById('lesson-content').appendChild(lessonActions);
         
         virtualPiano.classList.add('visible');
     }
@@ -683,6 +737,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 passwordModal.dataset.user = username;
                 openModal();
             });
+        });
+        
+        // Acceso de administrador (5 clics rápidos)
+        const adminTrigger = document.getElementById('admin-trigger');
+        let clickCount = 0;
+        let clickTimer;
+        
+        adminTrigger.addEventListener('click', () => {
+            clickCount++;
+            
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                if (clickCount >= 5) {
+                    modalUsername.textContent = 'Admin';
+                    passwordModal.dataset.user = 'Admin';
+                    openModal();
+                }
+                clickCount = 0;
+            }, 1000);
         });
 
         loginSubmitBtn.addEventListener('click', () => {
