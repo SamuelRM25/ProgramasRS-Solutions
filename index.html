@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header class="main-header">
-        <div class="logo" id="admin-secret-btn">🎹 Academia de Piano</div>
+        <div class="logo">🎹 Academia de Piano</div>
         <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation">☰</button>
         <nav id="main-nav" class="main-nav">
             <ul id="nav-list">
@@ -45,9 +45,24 @@
 
         <!-- Vista Principal del Dashboard -->
         <section id="dashboard-view" class="view">
-            <h1 id="dashboard-title">Bienvenido de nuevo, <span id="current-user-name"></span></h1>
-            <div id="dashboard-content">
-                <!-- El contenido del dashboard se renderizará dinámicamente -->
+            <h1>Bienvenido de nuevo, <span id="current-user-name"></span></h1>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Progreso General</h3>
+                    <div class="progress-bar-container">
+                        <div id="general-progress-bar" class="progress-bar"></div>
+                    </div>
+                    <p id="progress-percentage">0% Completado</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Próxima Lección</h3>
+                    <p id="next-lesson">Comienza con el Módulo 1</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Estadísticas</h3>
+                    <p>Lecciones Completadas: <strong id="lessons-completed-count">0</strong></p>
+                    <p>Juegos Jugados: <strong id="games-played-count">0</strong></p>
+                </div>
             </div>
         </section>
 
@@ -66,24 +81,15 @@
             <div id="lesson-content" class="lesson-content-area">
                 <!-- El contenido de la lección se cargará aquí -->
             </div>
-            <div class="lesson-actions">
-                <button id="complete-lesson-btn" class="btn btn-primary" style="display:none;">Marcar como Completada</button>
-                <p id="completion-feedback" class="success-message"></p>
-            </div>
         </section>
 
         <!-- Vista de Ejercicios -->
         <section id="exercises-view" class="view">
             <h1>Ejercicios Prácticos</h1>
             <div class="exercise-list">
-                <div class="exercise-card" data-exercise="note-identification-treble">
-                    <h3>🎼 Identificación de Notas (Clave de Sol)</h3>
-                    <p>Identifica las notas en el pentagrama de la mano derecha.</p>
-                    <button class="btn btn-primary">Comenzar Ejercicio</button>
-                </div>
-                <div class="exercise-card" data-exercise="note-identification-advanced">
-                    <h3>🎼🎼 Ejercicio Avanzado (Clave de Sol y Fa)</h3>
-                    <p>Combina ambas claves para leer partituras completas.</p>
+                <div class="exercise-card" data-exercise="note-identification">
+                    <h3>🎼 Identificación de Notas</h3>
+                    <p>¿Puedes identificar la nota que se muestra en el pentagrama?</p>
                     <button class="btn btn-primary">Comenzar Ejercicio</button>
                 </div>
             </div>
@@ -115,25 +121,6 @@
             </div>
         </section>
 
-        <!-- Vista del Cancionero -->
-        <section id="songbook-view" class="view">
-            <h1>Cancionero</h1>
-            <div class="songbook-container">
-                <div class="song-list">
-                    <h2>Selecciona una Canción</h2>
-                    <div id="song-cards">
-                        <!-- Las tarjetas de canciones se renderizarán aquí -->
-                    </div>
-                </div>
-                <div id="song-details" class="song-details">
-                    <h2 id="song-title">Selecciona una canción para ver los detalles</h2>
-                    <div id="song-content">
-                        <!-- El contenido de la canción (letra, acordes, tablatura) -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Vista de Herramientas -->
         <section id="tools-view" class="view">
             <h1>Herramientas Musicales</h1>
@@ -146,6 +133,15 @@
                         <button id="metronome-toggle" class="btn btn-secondary">Iniciar</button>
                         <div class="metronome-indicator"></div>
                     </div>
+                </div>
+                <div class="tool-card">
+                    <h3>📖 Libro de Canciones</h3>
+                    <p>Aquí encontrarás partituras sencillas para practicar.</p>
+                    <ul>
+                        <li>Brilla, Brilla, Estrellita</li>
+                        <li>Cumpleaños Feliz</li>
+                        <li>Oh, Susana</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -164,7 +160,7 @@
         </div>
     </div>
 
-    <!-- Piano Virtual -->
+    <!-- Piano Virtual (se puede mostrar en varias vistas) -->
     <div id="virtual-piano" class="virtual-piano-container">
         <div class="piano-labels">
             <span class="piano-label" data-note="C">C</span>
