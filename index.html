@@ -12,8 +12,9 @@
 <body>
 
     <header class="main-header">
-        <div class="logo">Academia de Piano</div>
-        <nav class="main-nav">
+        <div class="logo">🎹 Academia de Piano</div>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <nav id="main-nav" class="main-nav">
             <ul id="nav-list">
                 <!-- La navegación se renderizará dinámicamente con JS -->
             </ul>
@@ -26,7 +27,7 @@
         <section id="login-view" class="view active">
             <div class="login-container">
                 <h1>¡Bienvenido a tu Academia de Piano!</h1>
-                <p>Selecciona tu perfil para comenzar a aprender.</p>
+                <p>Selecciona tu perfil para comenzar tu viaje musical.</p>
                 <div class="user-cards">
                     <div class="user-card" data-user="Benjamín Ramírez (El Canche)">
                         <div class="user-avatar">🎹</div>
@@ -55,11 +56,12 @@
                 </div>
                 <div class="dashboard-card">
                     <h3>Próxima Lección</h3>
-                    <p id="next-lesson">Continúa con el Módulo 1, Lección 1</p>
+                    <p id="next-lesson">Comienza con el Módulo 1</p>
                 </div>
                 <div class="dashboard-card">
-                    <h3>Última Actividad</h3>
-                    <p id="last-activity">No hay actividad reciente.</p>
+                    <h3>Estadísticas</h3>
+                    <p>Lecciones Completadas: <strong id="lessons-completed-count">0</strong></p>
+                    <p>Juegos Jugados: <strong id="games-played-count">0</strong></p>
                 </div>
             </div>
         </section>
@@ -72,23 +74,28 @@
             </div>
         </section>
 
+        <!-- Vista de Lección Individual -->
+        <section id="lesson-view" class="view">
+            <button id="back-to-course" class="btn btn-secondary">← Volver al Curso</button>
+            <h1 id="lesson-title"></h1>
+            <div id="lesson-content" class="lesson-content-area">
+                <!-- El contenido de la lección se cargará aquí -->
+            </div>
+        </section>
+
         <!-- Vista de Ejercicios -->
         <section id="exercises-view" class="view">
             <h1>Ejercicios Prácticos</h1>
             <div class="exercise-list">
                 <div class="exercise-card" data-exercise="note-identification">
-                    <h3>Identificación de Notas</h3>
+                    <h3>🎼 Identificación de Notas</h3>
                     <p>¿Puedes identificar la nota que se muestra en el pentagrama?</p>
-                    <button class="btn btn-primary">Comenzar Ejercicio</button>
-                </div>
-                <div class="exercise-card" data-exercise="rhythm-clapping">
-                    <h3>Práctica de Ritmo</h3>
-                    <p>Sigue el patrón rítmico con el metrónomo.</p>
                     <button class="btn btn-primary">Comenzar Ejercicio</button>
                 </div>
             </div>
             <div id="exercise-content" class="exercise-content">
-                <!-- El contenido del ejercicio se cargará aquí -->
+                <canvas id="exercise-canvas" width="800" height="200"></canvas>
+                <div id="exercise-feedback"></div>
             </div>
         </section>
 
@@ -97,18 +104,20 @@
             <h1>Juegos para Aprender</h1>
             <div class="games-list">
                 <div class="game-card" data-game="piano-runner">
-                    <h3>Piano Runner</h3>
+                    <h3>🏃 Piano Runner</h3>
                     <p>¡Presiona las teclas correctas antes de que lleguen al fondo!</p>
-                    <button class="btn btn-primary">Jugar</button>
-                </div>
-                <div class="game-card" data-game="memory-game">
-                    <h3>Memoria Melódica</h3>
-                    <p>Repite la secuencia de notas que escuches.</p>
                     <button class="btn btn-primary">Jugar</button>
                 </div>
             </div>
             <div id="game-content" class="game-content">
-                <!-- El contenido del juego se cargará aquí -->
+                <div id="game-ui">
+                    <div id="game-score">Puntuación: 0</div>
+                    <div id="game-lives">Vidas: ❤️❤️❤️</div>
+                </div>
+                <canvas id="game-canvas" width="800" height="400"></canvas>
+                <div id="game-controls">
+                    <button id="start-game-btn" class="btn btn-primary">Iniciar Juego</button>
+                </div>
             </div>
         </section>
 
@@ -117,7 +126,7 @@
             <h1>Herramientas Musicales</h1>
             <div class="tools-grid">
                 <div class="tool-card" id="metronome-tool">
-                    <h3>Metrónomo</h3>
+                    <h3>🥁 Metrónomo</h3>
                     <div class="metronome-controls">
                         <label for="bpm-input">Tempo (BPM):</label>
                         <input type="number" id="bpm-input" value="120" min="40" max="240">
@@ -126,11 +135,11 @@
                     </div>
                 </div>
                 <div class="tool-card">
-                    <h3>Libro de Canciones</h3>
+                    <h3>📖 Libro de Canciones</h3>
                     <p>Aquí encontrarás partituras sencillas para practicar.</p>
                     <ul>
                         <li>Brilla, Brilla, Estrellita</li>
-                        <li> Cumpleaños Feliz</li>
+                        <li>Cumpleaños Feliz</li>
                         <li>Oh, Susana</li>
                     </ul>
                 </div>
@@ -153,8 +162,23 @@
 
     <!-- Piano Virtual (se puede mostrar en varias vistas) -->
     <div id="virtual-piano" class="virtual-piano-container">
-        <!-- Las teclas se generarán con JS -->
+        <div class="piano-labels">
+            <span class="piano-label" data-note="C">C</span>
+            <span class="piano-label" data-note="D">D</span>
+            <span class="piano-label" data-note="E">E</span>
+            <span class="piano-label" data-note="F">F</span>
+            <span class="piano-label" data-note="G">G</span>
+            <span class="piano-label" data-note="A">A</span>
+            <span class="piano-label" data-note="B">B</span>
+            <span class="piano-label" data-note="C2">C</span>
+        </div>
+        <div class="piano-keys">
+            <!-- Las teclas se generarán con JS -->
+        </div>
     </div>
+    
+    <!-- Spinner de Carga -->
+    <div id="loading-spinner" class="loading-spinner"></div>
 
     <script src="js/app.js"></script>
 </body>

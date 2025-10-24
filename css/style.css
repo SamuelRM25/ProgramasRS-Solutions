@@ -9,6 +9,7 @@
     --font-body: 'Roboto', sans-serif;
     --border-radius: 8px;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --transition-speed: 0.3s;
 }
 
 /* --- Estilos Globales y Reset --- */
@@ -23,6 +24,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
+    overflow-x: hidden; /* Previene scroll horizontal en móviles */
 }
 
 h1, h2, h3 {
@@ -40,13 +42,26 @@ h1, h2, h3 {
     box-shadow: var(--shadow);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo {
     font-family: var(--font-heading);
     font-size: 1.5rem;
     color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none; /* Oculto por defecto en desktop */
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.main-nav {
+    /* Nav es visible por defecto en desktop */
 }
 
 .main-nav ul {
@@ -61,7 +76,7 @@ h1, h2, h3 {
     font-weight: bold;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .main-nav a:hover, .main-nav a.active {
@@ -71,6 +86,7 @@ h1, h2, h3 {
 
 .app-container {
     padding: 2rem;
+    padding-bottom: 170px; /* Espacio para el piano */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -78,16 +94,15 @@ h1, h2, h3 {
 /* --- Sistema de Vistas --- */
 .view {
     display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out;
 }
 
 .view.active {
     display: block;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --- Vista de Login --- */
@@ -107,6 +122,7 @@ h1, h2, h3 {
     gap: 2rem;
     justify-content: center;
     margin-top: 2rem;
+    flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
 }
 
 .user-card {
@@ -114,8 +130,10 @@ h1, h2, h3 {
     padding: 2rem;
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     border: 2px solid transparent;
+    flex: 1;
+    min-width: 200px;
 }
 
 .user-card:hover {
@@ -200,6 +218,13 @@ h1, h2, h3 {
 
 .lessons-list {
     padding: 1rem 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.lessons-list.open {
+    max-height: 500px; /* Ajustar según sea necesario */
 }
 
 .lesson-item {
@@ -208,25 +233,16 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.lesson-item:hover {
+    background-color: rgba(244, 196, 48, 0.1);
 }
 
 .lesson-item:last-child {
     border-bottom: none;
-}
-
-.lesson-item button {
-    background: none;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.lesson-item button:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
 }
 
 .lesson-item.completed .lesson-title {
@@ -235,7 +251,26 @@ h1, h2, h3 {
 }
 
 .lesson-item.completed .status-icon {
-    color: #4caf50; /* Verde para completado */
+    color: #4caf50;
+}
+
+/* --- Vista de Lección --- */
+.lesson-content-area {
+    margin-top: 1.5rem;
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    line-height: 1.8;
+}
+
+.lesson-content-area h2 {
+    margin-top: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.lesson-content-area p {
+    margin-bottom: 1rem;
 }
 
 /* --- Ejercicios y Juegos --- */
@@ -252,6 +287,34 @@ h1, h2, h3 {
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+}
+
+.exercise-card:hover, .game-card:hover {
+    transform: scale(1.05);
+}
+
+#exercise-canvas, #game-canvas {
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    display: block;
+    margin: 1.5rem auto;
+    background: #222;
+    max-width: 100%;
+}
+
+#game-ui {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    margin-bottom: 1rem;
+}
+
+#game-controls {
+    text-align: center;
+    margin-top: 1rem;
 }
 
 /* --- Herramientas --- */
@@ -304,31 +367,45 @@ h1, h2, h3 {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 150px;
     background: linear-gradient(to top, #222, #1a1a1a);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 10px;
     box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-    z-index: 1000;
+    z-index: 999;
     transform: translateY(100%); /* Oculto por defecto */
-    transition: transform 0.3s ease-in-out;
+    transition: transform var(--transition-speed) ease-in-out;
 }
 
 .virtual-piano-container.visible {
     transform: translateY(0);
 }
 
+.piano-labels {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    height: 20px;
+}
+
+.piano-label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    width: 50px;
+    text-align: center;
+}
+
 .piano-keys {
     display: flex;
+    justify-content: center;
     position: relative;
+    overflow-x: auto; /* Permite scroll horizontal en móviles */
+    padding-bottom: 10px;
 }
 
 .piano-key {
     cursor: pointer;
     user-select: none;
     transition: background-color 0.1s;
+    position: relative;
 }
 
 .piano-key--white {
@@ -338,6 +415,7 @@ h1, h2, h3 {
     border: 1px solid #ccc;
     border-radius: 0 0 5px 5px;
     margin: 0 1px;
+    flex-shrink: 0; /* Evita que las teclas se encojan */
 }
 
 .piano-key--white:hover, .piano-key--white.active {
@@ -351,6 +429,7 @@ h1, h2, h3 {
     border-radius: 0 0 3px 3px;
     position: absolute;
     z-index: 2;
+    flex-shrink: 0;
 }
 
 .piano-key--black:hover, .piano-key--black.active {
@@ -367,7 +446,6 @@ h1, h2, h3 {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.7);
-    animation: fadeIn 0.3s;
 }
 
 .modal-content {
@@ -420,7 +498,7 @@ h1, h2, h3 {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all var(--transition-speed);
     text-decoration: none;
     display: inline-block;
 }
@@ -442,4 +520,116 @@ h1, h2, h3 {
 
 .btn-secondary:hover {
     background-color: #666;
+}
+
+/* --- Loading Spinner --- */
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid #333;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1002;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- Responsive Design --- */
+
+/* Tablets y Phablets */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 1rem;
+    }
+    
+    .menu-toggle {
+        display: block; /* Muestra el menú de hamburguesa */
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Oculto fuera de la pantalla */
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--surface-color);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        transition: right var(--transition-speed);
+        padding-top: 60px;
+    }
+
+    .main-nav.open {
+        right: 0; /* Muestra el menú */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .app-container {
+        padding: 1rem;
+        padding-bottom: 170px;
+    }
+
+    .login-container h1 {
+        font-size: 2rem;
+    }
+    
+    .user-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .user-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #game-canvas, #exercise-canvas {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .piano-key--white {
+        width: 40px;
+    }
+    
+    .piano-label {
+        width: 40px;
+        font-size: 0.7rem;
+    }
+    
+    .piano-key--black {
+        width: 28px;
+    }
+    
+    .piano-key--black[data-note="C#"], .piano-key--black[data-note="D#"] { left: 28px; }
+    .piano-key--black[data-note="F#"], .piano-key--black[data-note="G#"], .piano-key--black[data-note="A#"] { left: 168px; }
+
+    .modal-content {
+        margin: 30% auto;
+        padding: 1.5rem;
+    }
 }
