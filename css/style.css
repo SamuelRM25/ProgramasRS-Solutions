@@ -7,146 +7,629 @@
     --text-muted: #b0b0b0;
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Roboto', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
     --border-radius: 8px;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     --transition-speed: 0.3s;
 }
 
 /* --- Estilos Globales y Reset --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font-body); background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
-h1, h2, h3 { font-family: var(--font-heading); color: var(--primary-color); }
-a { color: var(--primary-color); text-decoration: none; }
-a:hover { text-decoration: underline; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden; /* Previene scroll horizontal en móviles */
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+}
 
 /* --- Layout Principal --- */
-.main-header { background-color: var(--surface-color); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
-.logo { font-family: var(--font-heading); font-size: 1.5rem; color: var(--primary-color); cursor: pointer; user-select: none; }
-.menu-toggle { display: none; background: none; border: none; color: var(--text-color); font-size: 2rem; cursor: pointer; }
-.main-nav ul { list-style: none; display: flex; gap: 1.5rem; }
-.main-nav a { color: var(--text-color); text-decoration: none; font-weight: bold; padding: 0.5rem 1rem; border-radius: var(--border-radius); transition: background-color var(--transition-speed), color var(--transition-speed); }
-.main-nav a:hover, .main-nav a.active { background-color: var(--primary-color); color: var(--bg-color); text-decoration: none; }
-.app-container { padding: 2rem; padding-bottom: 170px; max-width: 1200px; margin: 0 auto; }
+.main-header {
+    background-color: var(--surface-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none; /* Oculto por defecto en desktop */
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.main-nav {
+    /* Nav es visible por defecto en desktop */
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.main-nav a:hover, .main-nav a.active {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.app-container {
+    padding: 2rem;
+    padding-bottom: 170px; /* Espacio para el piano */
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 /* --- Sistema de Vistas --- */
-.view { display: none; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out; }
-.view.active { display: block; opacity: 1; transform: translateY(0); }
+.view {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out;
+}
+
+.view.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* --- Vista de Login --- */
-.login-container { text-align: center; max-width: 600px; margin: 4rem auto; }
-.login-container h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-.user-cards { display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-.user-card { background-color: var(--surface-color); padding: 2rem; border-radius: var(--border-radius); cursor: pointer; transition: transform var(--transition-speed), box-shadow var(--transition-speed); border: 2px solid transparent; flex: 1; min-width: 200px; }
-.user-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); border-color: var(--primary-color); }
-.user-avatar { font-size: 4rem; margin-bottom: 1rem; }
-.user-card h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-.user-nickname { color: var(--text-muted); }
+.login-container {
+    text-align: center;
+    max-width: 600px;
+    margin: 4rem auto;
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
+}
+
+.user-card {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    border: 2px solid transparent;
+    flex: 1;
+    min-width: 200px;
+}
+
+.user-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-color);
+}
+
+.user-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.user-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-nickname {
+    color: var(--text-muted);
+}
 
 /* --- Dashboard --- */
-#dashboard-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.dashboard-card { background-color: var(--surface-color); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); }
-.progress-bar-container { background-color: #444; height: 20px; border-radius: 10px; overflow: hidden; margin: 1rem 0; }
-.progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary-color), #ffda44); width: 0%; transition: width 0.5s ease-in-out; }
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
 
-/* --- Vista de Lección --- */
-.lesson-actions { margin-top: 2rem; text-align: center; }
-.success-message { color: #4caf50; font-weight: bold; margin-top: 1rem; }
+.dashboard-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.progress-bar-container {
+    background-color: #444;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), #ffda44);
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+}
 
 /* --- Curso y Módulos --- */
-.modules-container { margin-top: 2rem; }
-.module-card { background-color: var(--surface-color); border-radius: var(--border-radius); margin-bottom: 1.5rem; overflow: hidden; box-shadow: var(--shadow); }
-.module-header { background-color: #333; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-.module-header h2 { margin: 0; }
-.module-header .status-icon { font-size: 1.5rem; }
-.lessons-list { padding: 1rem 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-.lessons-list.open { max-height: 500px; }
-.lesson-item { padding: 0.75rem 0; border-bottom: 1px solid #444; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background-color var(--transition-speed); }
-.lesson-item:hover { background-color: rgba(244, 196, 48, 0.1); }
-.lesson-item:last-child { border-bottom: none; }
-.lesson-item.completed .lesson-title { color: var(--text-muted); text-decoration: line-through; }
-.lesson-item.completed .status-icon { color: #4caf50; }
+.modules-container {
+    margin-top: 2rem;
+}
 
-/* --- Cancionero --- */
-.songbook-container { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-top: 2rem; }
-.song-list h2 { color: var(--text-color); }
-#song-cards { display: flex; flex-direction: column; gap: 1rem; }
-.song-card { background-color: var(--surface-color); padding: 1rem; border-radius: var(--border-radius); cursor: pointer; transition: background-color var(--transition-speed); }
-.song-card:hover, .song-card.active { background-color: #333; }
-.song-details { background-color: var(--surface-color); padding: 2rem; border-radius: var(--border-radius); }
-#song-content h3 { margin-top: 1.5rem; border-bottom: 1px solid var(--primary-color); padding-bottom: 0.5rem; }
-.lyrics { white-space: pre-line; font-style: italic; color: var(--text-muted); }
-.chords { font-weight: bold; color: var(--primary-color); }
-.tablature { font-family: var(--font-mono); background-color: #1a1a1a; padding: 1rem; border-radius: 5px; line-height: 1.8; }
+.module-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.module-header {
+    background-color: #333;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module-header h2 {
+    margin: 0;
+}
+
+.module-header .status-icon {
+    font-size: 1.5rem;
+}
+
+.lessons-list {
+    padding: 1rem 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.lessons-list.open {
+    max-height: 500px; /* Ajustar según sea necesario */
+}
+
+.lesson-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.lesson-item:hover {
+    background-color: rgba(244, 196, 48, 0.1);
+}
+
+.lesson-item:last-child {
+    border-bottom: none;
+}
+
+.lesson-item.completed .lesson-title {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+.lesson-item.completed .status-icon {
+    color: #4caf50;
+}
+
+/* --- Vista de Lección --- */
+.lesson-content-area {
+    margin-top: 1.5rem;
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    line-height: 1.8;
+}
+
+.lesson-content-area h2 {
+    margin-top: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.lesson-content-area p {
+    margin-bottom: 1rem;
+}
 
 /* --- Ejercicios y Juegos --- */
-.exercise-list, .games-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.exercise-card, .game-card { background-color: var(--surface-color); padding: 1.5rem; border-radius: var(--border-radius); text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform var(--transition-speed); }
-.exercise-card:hover, .game-card:hover { transform: scale(1.05); }
-#exercise-canvas, #game-canvas { border: 2px solid var(--primary-color); border-radius: var(--border-radius); display: block; margin: 1.5rem auto; background: #222; max-width: 100%; }
-#game-ui { display: flex; justify-content: space-between; font-size: 1.2rem; font-family: var(--font-heading); margin-bottom: 1rem; }
-#game-controls { text-align: center; margin-top: 1rem; }
+.exercise-list, .games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.exercise-card, .game-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+}
+
+.exercise-card:hover, .game-card:hover {
+    transform: scale(1.05);
+}
+
+#exercise-canvas, #game-canvas {
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    display: block;
+    margin: 1.5rem auto;
+    background: #222;
+    max-width: 100%;
+}
+
+#game-ui {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    margin-bottom: 1rem;
+}
+
+#game-controls {
+    text-align: center;
+    margin-top: 1rem;
+}
 
 /* --- Herramientas --- */
-.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.tool-card { background-color: var(--surface-color); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); }
-.metronome-controls { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-.metronome-controls input { padding: 0.5rem; border-radius: 5px; border: 1px solid #555; background-color: #333; color: var(--text-color); }
-.metronome-indicator { width: 30px; height: 30px; background-color: #666; border-radius: 50%; margin: 1rem auto; transition: background-color 0.1s; }
-.metronome-indicator.active { background-color: var(--primary-color); box-shadow: 0 0 15px var(--primary-color); }
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
 
-/* --- Piano Virtual (Diseño Unificado) --- */
-.virtual-piano-container { position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, #222, #1a1a1a); padding: 10px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); z-index: 999; transform: translateY(100%); transition: transform var(--transition-speed) ease-in-out; }
-.virtual-piano-container.visible { transform: translateY(0); }
-.piano-labels { display: flex; justify-content: center; margin-bottom: 5px; height: 20px; }
-.piano-label { color: var(--text-muted); font-size: 0.8rem; width: 50px; text-align: center; }
-.piano-keys { display: flex; justify-content: center; position: relative; overflow-x: auto; padding-bottom: 10px; }
-.piano-key { cursor: pointer; user-select: none; transition: background-color 0.1s; position: relative; }
-.piano-key--white { width: 50px; height: 120px; background-color: #fff; border: 1px solid #ccc; border-radius: 0 0 5px 5px; margin: 0; /* Sin separación */ flex-shrink: 0; }
-.piano-key--white:hover, .piano-key--white.active { background-color: #eee; }
-.piano-key--black { width: 35px; height: 80px; background-color: #000; border-radius: 0 0 3px 3px; position: absolute; z-index: 2; flex-shrink: 0; }
-.piano-key--black:hover, .piano-key--black.active { background-color: #333; }
+.tool-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.metronome-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metronome-controls input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: var(--text-color);
+}
+
+.metronome-indicator {
+    width: 30px;
+    height: 30px;
+    background-color: #666;
+    border-radius: 50%;
+    margin: 1rem auto;
+    transition: background-color 0.1s;
+}
+
+.metronome-indicator.active {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* --- Piano Virtual --- */
+.virtual-piano-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, #222, #1a1a1a);
+    padding: 10px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+    z-index: 999;
+    transform: translateY(100%); /* Oculto por defecto */
+    transition: transform var(--transition-speed) ease-in-out;
+}
+
+.virtual-piano-container.visible {
+    transform: translateY(0);
+}
+
+.piano-labels {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    height: 20px;
+}
+
+.piano-label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    width: 50px;
+    text-align: center;
+}
+
+.piano-keys {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow-x: auto; /* Permite scroll horizontal en móviles */
+    padding-bottom: 10px;
+}
+
+.piano-key {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.1s;
+    position: relative;
+}
+
+.piano-key--white {
+    width: 50px;
+    height: 120px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    margin: 0 1px;
+    flex-shrink: 0; /* Evita que las teclas se encojan */
+}
+
+.piano-key--white:hover, .piano-key--white.active {
+    background-color: #eee;
+}
+
+.piano-key--black {
+    width: 35px;
+    height: 80px;
+    background-color: #000;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.piano-key--black:hover, .piano-key--black.active {
+    background-color: #333;
+}
 
 /* --- Modal --- */
-.modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); }
-.modal-content { background-color: var(--surface-color); margin: 15% auto; padding: 2rem; border: 1px solid var(--primary-color); width: 90%; max-width: 400px; border-radius: var(--border-radius); text-align: center; position: relative; }
-.close-btn { color: var(--text-muted); position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
-.close-btn:hover { color: var(--text-color); }
-#password-input { width: 100%; padding: 0.8rem; margin: 1rem 0; border-radius: 5px; border: 1px solid #555; background-color: #333; color: var(--text-color); font-size: 1rem; }
-.error-message { color: #e74c3c; margin-top: 1rem; }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid var(--primary-color);
+    width: 90%;
+    max-width: 400px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    color: var(--text-muted);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--text-color);
+}
+
+#password-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 1rem;
+}
 
 /* --- Botones --- */
-.btn { padding: 0.7rem 1.5rem; border: none; border-radius: var(--border-radius); font-size: 1rem; font-weight: bold; cursor: pointer; transition: all var(--transition-speed); text-decoration: none; display: inline-block; }
-.btn-primary { background-color: var(--primary-color); color: var(--bg-color); }
-.btn-primary:hover { background-color: #ffda44; transform: scale(1.05); }
-.btn-secondary { background-color: #555; color: var(--text-color); }
-.btn-secondary:hover { background-color: #666; }
+.btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.btn-primary:hover {
+    background-color: #ffda44;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #666;
+}
 
 /* --- Loading Spinner --- */
-.loading-spinner { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; z-index: 1002; }
-@keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid #333;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1002;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
 
 /* --- Responsive Design --- */
+
+/* Tablets y Phablets */
 @media (max-width: 768px) {
-    .main-header { padding: 1rem; }
-    .menu-toggle { display: block; }
-    .main-nav { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background-color: var(--surface-color); box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right var(--transition-speed); padding-top: 60px; }
-    .main-nav.open { right: 0; }
-    .main-nav ul { flex-direction: column; padding: 1rem; }
-    .app-container { padding: 1rem; padding-bottom: 170px; }
-    .login-container h1 { font-size: 2rem; }
-    .user-cards { flex-direction: column; align-items: center; }
-    .user-card { width: 100%; max-width: 300px; }
-    #dashboard-content { grid-template-columns: 1fr; }
-    .songbook-container { grid-template-columns: 1fr; }
-    #game-canvas, #exercise-canvas { width: 100%; height: auto; }
+    .main-header {
+        padding: 1rem;
+    }
+    
+    .menu-toggle {
+        display: block; /* Muestra el menú de hamburguesa */
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Oculto fuera de la pantalla */
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--surface-color);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        transition: right var(--transition-speed);
+        padding-top: 60px;
+    }
+
+    .main-nav.open {
+        right: 0; /* Muestra el menú */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .app-container {
+        padding: 1rem;
+        padding-bottom: 170px;
+    }
+
+    .login-container h1 {
+        font-size: 2rem;
+    }
+    
+    .user-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .user-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #game-canvas, #exercise-canvas {
+        width: 100%;
+        height: auto;
+    }
 }
+
+/* Móviles */
 @media (max-width: 480px) {
-    .logo { font-size: 1.2rem; }
-    .piano-key--white { width: 40px; }
-    .piano-label { width: 40px; font-size: 0.7rem; }
-    .piano-key--black { width: 28px; }
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .piano-key--white {
+        width: 40px;
+    }
+    
+    .piano-label {
+        width: 40px;
+        font-size: 0.7rem;
+    }
+    
+    .piano-key--black {
+        width: 28px;
+    }
+    
     .piano-key--black[data-note="C#"], .piano-key--black[data-note="D#"] { left: 28px; }
     .piano-key--black[data-note="F#"], .piano-key--black[data-note="G#"], .piano-key--black[data-note="A#"] { left: 168px; }
-    .modal-content { margin: 30% auto; padding: 1.5rem; }
+
+    .modal-content {
+        margin: 30% auto;
+        padding: 1.5rem;
+    }
 }
