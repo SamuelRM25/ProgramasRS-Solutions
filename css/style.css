@@ -156,7 +156,10 @@ h1, h2, h3 {
 
 .main-nav {
     /* Nav es visible por defecto en desktop */
+    display: flex;
+    align-items: center;
 }
+
 
 .main-nav ul {
     list-style: none;
