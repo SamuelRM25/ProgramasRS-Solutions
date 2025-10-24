@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Piano - El Canche & El Gordo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">Academia de Piano</div>
+        <nav class="main-nav">
+            <ul id="nav-list">
+                <!-- La navegación se renderizará dinámicamente con JS -->
+            </ul>
+        </nav>
+    </header>
+
+    <main class="app-container">
+        
+        <!-- Vista de Inicio y Selección de Usuario -->
+        <section id="login-view" class="view active">
+            <div class="login-container">
+                <h1>¡Bienvenido a tu Academia de Piano!</h1>
+                <p>Selecciona tu perfil para comenzar a aprender.</p>
+                <div class="user-cards">
+                    <div class="user-card" data-user="Benjamín Ramírez (El Canche)">
+                        <div class="user-avatar">🎹</div>
+                        <h2>Benjamín Ramírez</h2>
+                        <p class="user-nickname">(El Canche)</p>
+                    </div>
+                    <div class="user-card" data-user="Alcides Ramírez (El Gordo)">
+                        <div class="user-avatar">🎵</div>
+                        <h2>Alcides Ramírez</h2>
+                        <p class="user-nickname">(El Gordo)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vista Principal del Dashboard -->
+        <section id="dashboard-view" class="view">
+            <h1>Bienvenido de nuevo, <span id="current-user-name"></span></h1>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Progreso General</h3>
+                    <div class="progress-bar-container">
+                        <div id="general-progress-bar" class="progress-bar"></div>
+                    </div>
+                    <p id="progress-percentage">0% Completado</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Próxima Lección</h3>
+                    <p id="next-lesson">Continúa con el Módulo 1, Lección 1</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Última Actividad</h3>
+                    <p id="last-activity">No hay actividad reciente.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vista del Curso -->
+        <section id="course-view" class="view">
+            <h1>Módulos del Curso</h1>
+            <div id="modules-container" class="modules-container">
+                <!-- Los módulos se renderizarán dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- Vista de Ejercicios -->
+        <section id="exercises-view" class="view">
+            <h1>Ejercicios Prácticos</h1>
+            <div class="exercise-list">
+                <div class="exercise-card" data-exercise="note-identification">
+                    <h3>Identificación de Notas</h3>
+                    <p>¿Puedes identificar la nota que se muestra en el pentagrama?</p>
+                    <button class="btn btn-primary">Comenzar Ejercicio</button>
+                </div>
+                <div class="exercise-card" data-exercise="rhythm-clapping">
+                    <h3>Práctica de Ritmo</h3>
+                    <p>Sigue el patrón rítmico con el metrónomo.</p>
+                    <button class="btn btn-primary">Comenzar Ejercicio</button>
+                </div>
+            </div>
+            <div id="exercise-content" class="exercise-content">
+                <!-- El contenido del ejercicio se cargará aquí -->
+            </div>
+        </section>
+
+        <!-- Vista de Juegos -->
+        <section id="games-view" class="view">
+            <h1>Juegos para Aprender</h1>
+            <div class="games-list">
+                <div class="game-card" data-game="piano-runner">
+                    <h3>Piano Runner</h3>
+                    <p>¡Presiona las teclas correctas antes de que lleguen al fondo!</p>
+                    <button class="btn btn-primary">Jugar</button>
+                </div>
+                <div class="game-card" data-game="memory-game">
+                    <h3>Memoria Melódica</h3>
+                    <p>Repite la secuencia de notas que escuches.</p>
+                    <button class="btn btn-primary">Jugar</button>
+                </div>
+            </div>
+            <div id="game-content" class="game-content">
+                <!-- El contenido del juego se cargará aquí -->
+            </div>
+        </section>
+
+        <!-- Vista de Herramientas -->
+        <section id="tools-view" class="view">
+            <h1>Herramientas Musicales</h1>
+            <div class="tools-grid">
+                <div class="tool-card" id="metronome-tool">
+                    <h3>Metrónomo</h3>
+                    <div class="metronome-controls">
+                        <label for="bpm-input">Tempo (BPM):</label>
+                        <input type="number" id="bpm-input" value="120" min="40" max="240">
+                        <button id="metronome-toggle" class="btn btn-secondary">Iniciar</button>
+                        <div class="metronome-indicator"></div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <h3>Libro de Canciones</h3>
+                    <p>Aquí encontrarás partituras sencillas para practicar.</p>
+                    <ul>
+                        <li>Brilla, Brilla, Estrellita</li>
+                        <li> Cumpleaños Feliz</li>
+                        <li>Oh, Susana</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal para Contraseña -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Ingresa tu Contraseña</h2>
+            <p>Usuario: <strong id="modal-username"></strong></p>
+            <input type="password" id="password-input" placeholder="Contraseña">
+            <button id="login-submit-btn" class="btn btn-primary">Ingresar</button>
+            <p id="login-error" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Piano Virtual (se puede mostrar en varias vistas) -->
+    <div id="virtual-piano" class="virtual-piano-container">
+        <!-- Las teclas se generarán con JS -->
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

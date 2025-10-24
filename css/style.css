@@ -1,0 +1,445 @@
+/* --- Variables de Diseño --- */
+:root {
+    --bg-color: #1a1a1a;
+    --surface-color: #2a2a2a;
+    --primary-color: #f4c430;
+    --text-color: #f0f0f0;
+    --text-muted: #b0b0b0;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+    --border-radius: 8px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Estilos Globales y Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+}
+
+/* --- Layout Principal --- */
+.main-header {
+    background-color: var(--surface-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.app-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Sistema de Vistas --- */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Vista de Login --- */
+.login-container {
+    text-align: center;
+    max-width: 600px;
+    margin: 4rem auto;
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.user-card {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+}
+
+.user-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-color);
+}
+
+.user-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.user-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-nickname {
+    color: var(--text-muted);
+}
+
+/* --- Dashboard --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.dashboard-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.progress-bar-container {
+    background-color: #444;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), #ffda44);
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* --- Curso y Módulos --- */
+.modules-container {
+    margin-top: 2rem;
+}
+
+.module-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.module-header {
+    background-color: #333;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module-header h2 {
+    margin: 0;
+}
+
+.module-header .status-icon {
+    font-size: 1.5rem;
+}
+
+.lessons-list {
+    padding: 1rem 1.5rem;
+}
+
+.lesson-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lesson-item:last-child {
+    border-bottom: none;
+}
+
+.lesson-item button {
+    background: none;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.lesson-item button:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.lesson-item.completed .lesson-title {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+.lesson-item.completed .status-icon {
+    color: #4caf50; /* Verde para completado */
+}
+
+/* --- Ejercicios y Juegos --- */
+.exercise-list, .games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.exercise-card, .game-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+/* --- Herramientas --- */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tool-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.metronome-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metronome-controls input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: var(--text-color);
+}
+
+.metronome-indicator {
+    width: 30px;
+    height: 30px;
+    background-color: #666;
+    border-radius: 50%;
+    margin: 1rem auto;
+    transition: background-color 0.1s;
+}
+
+.metronome-indicator.active {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* --- Piano Virtual --- */
+.virtual-piano-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to top, #222, #1a1a1a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+    z-index: 1000;
+    transform: translateY(100%); /* Oculto por defecto */
+    transition: transform 0.3s ease-in-out;
+}
+
+.virtual-piano-container.visible {
+    transform: translateY(0);
+}
+
+.piano-keys {
+    display: flex;
+    position: relative;
+}
+
+.piano-key {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.1s;
+}
+
+.piano-key--white {
+    width: 50px;
+    height: 120px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    margin: 0 1px;
+}
+
+.piano-key--white:hover, .piano-key--white.active {
+    background-color: #eee;
+}
+
+.piano-key--black {
+    width: 35px;
+    height: 80px;
+    background-color: #000;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    z-index: 2;
+}
+
+.piano-key--black:hover, .piano-key--black.active {
+    background-color: #333;
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid var(--primary-color);
+    width: 90%;
+    max-width: 400px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    color: var(--text-muted);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--text-color);
+}
+
+#password-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 1rem;
+}
+
+/* --- Botones --- */
+.btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.btn-primary:hover {
+    background-color: #ffda44;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #666;
+}
