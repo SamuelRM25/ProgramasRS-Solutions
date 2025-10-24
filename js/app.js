@@ -146,6 +146,177 @@ document.addEventListener('DOMContentLoaded', () => {
     const virtualPiano = document.getElementById('virtual-piano');
     const loadingSpinner = document.getElementById('loading-spinner');
 
+    // --- CANCIONERO ---
+    const SONGBOOK = {
+        songs: [
+            {
+                id: 'song1',
+                title: 'Brilla, Brilla, Estrellita',
+                difficulty: 'Principiante',
+                notation: `
+                    <div class="song-notation">
+                        <h3>Partitura</h3>
+                        <img src="assets/images/twinkle_star_sheet.png" alt="Partitura de Brilla, Brilla, Estrellita" class="sheet-music">
+                        <h3>Tablatura</h3>
+                        <div class="tablature">
+                            <p>Do Do Sol Sol La La Sol</p>
+                            <p>Fa Fa Mi Mi Re Re Do</p>
+                            <p>Sol Sol Fa Fa Mi Mi Re</p>
+                            <p>Sol Sol Fa Fa Mi Mi Re</p>
+                            <p>Do Do Sol Sol La La Sol</p>
+                            <p>Fa Fa Mi Mi Re Re Do</p>
+                        </div>
+                        <div class="chord-chart">
+                            <h4>Acordes:</h4>
+                            <p>Do Mayor (C): Do-Mi-Sol</p>
+                            <p>Fa Mayor (F): Fa-La-Do</p>
+                            <p>Sol Mayor (G): Sol-Si-Re</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'song2',
+                title: 'Cumpleaños Feliz',
+                difficulty: 'Principiante',
+                notation: `
+                    <div class="song-notation">
+                        <h3>Partitura</h3>
+                        <img src="assets/images/happy_birthday_sheet.png" alt="Partitura de Cumpleaños Feliz" class="sheet-music">
+                        <h3>Tablatura</h3>
+                        <div class="tablature">
+                            <p>Do Do Re Do Fa Mi</p>
+                            <p>Do Do Re Do Sol Fa</p>
+                            <p>Do Do Do' La Fa Mi Re</p>
+                            <p>La# La# La Fa Sol Fa</p>
+                        </div>
+                        <div class="chord-chart">
+                            <h4>Acordes:</h4>
+                            <p>Do Mayor (C): Do-Mi-Sol</p>
+                            <p>Fa Mayor (F): Fa-La-Do</p>
+                            <p>Sol Mayor (G): Sol-Si-Re</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'song3',
+                title: 'Oh, Susana',
+                difficulty: 'Intermedio',
+                notation: `
+                    <div class="song-notation">
+                        <h3>Partitura</h3>
+                        <img src="assets/images/oh_susana_sheet.png" alt="Partitura de Oh, Susana" class="sheet-music">
+                        <h3>Tablatura</h3>
+                        <div class="tablature">
+                            <p>Do Re Mi Mi Mi Re Mi Re</p>
+                            <p>Do Mi Sol</p>
+                            <p>Do Re Mi Mi Mi Re Mi Re</p>
+                            <p>Do Mi Do</p>
+                            <p>Re Mi Fa Fa Fa Mi Fa Mi</p>
+                            <p>Re Fa La</p>
+                            <p>Do Re Mi Mi Mi Re Mi Re</p>
+                            <p>Do Mi Do</p>
+                        </div>
+                        <div class="chord-chart">
+                            <h4>Acordes:</h4>
+                            <p>Do Mayor (C): Do-Mi-Sol</p>
+                            <p>Fa Mayor (F): Fa-La-Do</p>
+                            <p>Sol Mayor (G): Sol-Si-Re</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'song4',
+                title: 'Para Elisa (Simplificada)',
+                difficulty: 'Intermedio',
+                notation: `
+                    <div class="song-notation">
+                        <h3>Partitura</h3>
+                        <img src="assets/images/fur_elise_sheet.png" alt="Partitura de Para Elisa" class="sheet-music">
+                        <h3>Tablatura</h3>
+                        <div class="tablature">
+                            <p>Mi Re# Mi Re# Mi Si Re Do La</p>
+                            <p>Do Mi La Si Mi La Si Do</p>
+                            <p>Mi Re# Mi Re# Mi Si Re Do La</p>
+                            <p>Do Mi La Si Mi Do Si La</p>
+                        </div>
+                        <div class="chord-chart">
+                            <h4>Acordes:</h4>
+                            <p>La menor (Am): La-Do-Mi</p>
+                            <p>Mi Mayor (E): Mi-Sol#-Si</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'song5',
+                title: 'Himno a la Alegría',
+                difficulty: 'Intermedio',
+                notation: `
+                    <div class="song-notation">
+                        <h3>Partitura</h3>
+                        <img src="assets/images/ode_to_joy_sheet.png" alt="Partitura del Himno a la Alegría" class="sheet-music">
+                        <h3>Tablatura</h3>
+                        <div class="tablature">
+                            <p>Mi Mi Fa Sol Sol Fa Mi Re</p>
+                            <p>Do Do Re Mi Mi Re Re</p>
+                            <p>Mi Mi Fa Sol Sol Fa Mi Re</p>
+                            <p>Do Do Re Mi Re Do Do</p>
+                            <p>Re Re Mi Do Re Mi Fa Mi Do</p>
+                            <p>Re Mi Fa Mi Re Do Re Sol</p>
+                            <p>Mi Mi Fa Sol Sol Fa Mi Re</p>
+                            <p>Do Do Re Mi Re Do Do</p>
+                        </div>
+                        <div class="chord-chart">
+                            <h4>Acordes:</h4>
+                            <p>Do Mayor (C): Do-Mi-Sol</p>
+                            <p>Sol Mayor (G): Sol-Si-Re</p>
+                        </div>
+                    </div>
+                `
+            }
+        ]
+    };
+
+    // Función para renderizar el cancionero
+    function renderSongbook() {
+        const songbookContainer = document.querySelector('.tool-card:nth-child(2)');
+        if (!songbookContainer) return;
+        
+        songbookContainer.innerHTML = `
+            <h3>📖 Cancionero Completo</h3>
+            <p>Selecciona una canción para ver su partitura y tablatura:</p>
+            <div class="songbook-list"></div>
+            <div class="song-details"></div>
+        `;
+        
+        const songbookList = songbookContainer.querySelector('.songbook-list');
+        
+        SONGBOOK.songs.forEach(song => {
+            const songItem = document.createElement('div');
+            songItem.className = 'songbook-item';
+            songItem.innerHTML = `
+                <span class="song-title">${song.title}</span>
+                <span class="song-difficulty ${song.difficulty.toLowerCase()}">${song.difficulty}</span>
+            `;
+            
+            songItem.addEventListener('click', () => {
+                document.querySelectorAll('.songbook-item').forEach(item => item.classList.remove('active'));
+                songItem.classList.add('active');
+                
+                const songDetails = songbookContainer.querySelector('.song-details');
+                songDetails.innerHTML = `
+                    <h4>${song.title}</h4>
+                    ${song.notation}
+                `;
+            });
+            
+            songbookList.appendChild(songItem);
+        });
+    }
+    
     // --- FUNCIONES DE NAVEGACIÓN Y VISTAS ---
     function showView(viewId, data = {}) {
         views.forEach(view => view.classList.remove('active'));
@@ -157,12 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideLoading();
                 if (viewId === 'lesson') {
                     renderLesson(data.moduleId, data.lessonId);
-                } else if (viewId === 'dashboard') {
-                    renderDashboard();
-                } else if (viewId === 'course') {
-                    renderCourse();
-                } else if (viewId === 'tools') {
-                    renderSongbook();
                 }
             }, 300);
         }
